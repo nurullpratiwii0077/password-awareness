@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Password Awareness TRPL</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: #2563eb;
+            color: white;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            font-size: 21px;
+        }
+
+        nav span {
+            font-size: 14px;
+        }
+
+        /* CONTAINER */
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        /* PAGE */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* HOME */
+        .hero {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .hero .icon {
+            font-size: 70px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            color: #1d4ed8;
+            margin-bottom: 15px;
+        }
+
+        .hero h3 {
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: #64748b;
+            line-height: 1.7;
+            max-width: 650px;
+            margin: auto;
+        }
+
+        /* BUTTON */
+        button {
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 13px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 25px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .secondary {
+            background: #64748b;
+        }
+
+        .secondary:hover {
+            background: #475569;
+        }
+
+        /* CARD */
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            margin-bottom: 25px;
+        }
+
+        .card h2 {
+            color: #1d4ed8;
+            margin-bottom: 15px;
+        }
+
+        /* FORM */
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        /* MATERI */
+        .materi {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .materi-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .materi-card .emoji {
+            font-size: 35px;
+            margin-bottom: 12px;
+        }
+
+        .materi-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .materi-card p {
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* QUIZ */
+        .question {
+            margin-bottom: 30px;
+        }
+
+        .question h3 {
+            margin-bottom: 15px;
+        }
+
+        .option {
+            display: block;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 13px;
+            margin: 8px 0;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .option:hover {
+            background: #eff6ff;
+        }
+
+        .option input {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        /* RESULT */
+        .result {
+            text-align: center;
+        }
+
+        .score {
+            font-size: 55px;
+            font-weight: bold;
+            color: #2563eb;
+            margin: 20px 0;
+        }
+
+        .result-message {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* RECOMMENDATION */
+        .recommendation {
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #64748b;
+            margin-top: 50px;
+        }
+
+        @media(max-width:600px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <h2>🔐 Password Awareness</h2>
+    <span>TRPL UNG</span>
+</nav>
+
+
+<div class="container">
+
+    <!-- ================= BERANDA ================= -->
+    <section id="home" class="page active">
+
+        <div class="hero">
+
+            <div class="icon">🔐</div>
+
+            <h1>Password Awareness</h1>
+
+            <h3>Password yang Kuat, Akun Lebih Aman</h3>
+
+            <p>
+                Website edukasi keamanan password untuk membantu mahasiswa
+                memahami cara membuat dan menjaga password yang aman
+                dalam penggunaan akun digital.
+            </p>
+
+            <button onclick="showPage('data')">
+                Mulai Belajar
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= DATA PENGGUNA ================= -->
+    <section id="data" class="page">
+
+        <div class="card">
+
+            <h2>👤 Data Pengguna</h2>
+
+            <p>
+                Silakan masukkan data sederhana sebelum memulai pembelajaran.
+            </p>
+
+            <label>Kode Responden</label>
+            <input
+                type="text"
+                id="kode"
+                placeholder="Contoh: TRPL001"
+            >
+
+            <label>Angkatan</label>
+
+            <select id="angkatan">
+
+                <option value="">-- Pilih Angkatan --</option>
+
+                <option>2022</option>
+                <option>2023</option>
+                <option>2024</option>
+                <option>2025</option>
+                <option>2026</option>
+
+            </select>
+
+
+            <label>Semester</label>
+
+            <select id="semester">
+
+                <option value="">-- Pilih Semester --</option>
+
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+
+            </select>
+
+
+            <button onclick="mulaiMateri()">
+                Lanjut
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= MATERI ================= -->
+    <section id="materi" class="page">
+
+        <div class="card">
+
+            <h2>📚 Materi Edukasi Keamanan Password</h2>
+
+            <p>
+                Pelajari beberapa prinsip dasar untuk menjaga keamanan password.
+            </p>
+
+
+            <div class="materi">
+
+                <div class="materi-card">
+
+                    <div class="emoji">🔑</div>
+
+                    <h3>1. Gunakan Password Kuat</h3>
+
+                    <p>
+                        Gunakan password yang sulit ditebak dengan kombinasi
+                        huruf, angka, dan karakter khusus.
+                    </p>
+
+                </div>
+
+
+                <div class="materi-card">
+
+                    <div class="emoji">🚫</div>
+
+                    <h3>2. Jangan Gunakan Password yang Sama</h3>
+
+                    <p>
+                        Gunakan password berbeda untuk akun yang berbeda
+                        agar kebocoran satu akun tidak berdampak pada akun lainnya.
+                    </p>
+
+                </div>
+
+
+                <div class="materi-card">
+
+                    <div class="emoji">👤</div>
+
+                    <h3>3. Hindari Data Pribadi</h3>
+
+                    <p>
+                        Jangan menggunakan nama, tanggal lahir, nomor telepon,
+                        atau informasi pribadi sebagai password.
+                    </p>
+
+                </div>
+
+
+                <div class="materi-card">
+
+                    <div class="emoji">🛡️</div>
+
+                    <h3>4. Gunakan 2FA</h3>
+
+                    <p>
+                        Aktifkan autentikasi dua faktor jika tersedia
+                        untuk memberikan perlindungan tambahan.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button onclick="showPage('quiz')">
+                Cek Pemahaman
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= QUIZ ================= -->
+    <section id="quiz" class="page">
+
+        <div class="card">
+
+            <h2>📝 Cek Pemahaman</h2>
+
+            <p>
+                Jawablah pertanyaan berikut berdasarkan materi yang telah dipelajari.
+            </p>
+
+
+            <!-- SOAL 1 -->
+            <div class="question">
+
+                <h3>
+                    1. Manakah contoh password yang paling aman?
+                </h3>
+
+                <label class="option">
+                    <input type="radio" name="q1" value="0">
+                    12345678
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q1" value="0">
+                    nurul123
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q1" value="1">
+                    R!7p#K9@xL2
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q1" value="0">
+                    20042004
+                </label>
+
+            </div>
+
+
+            <!-- SOAL 2 -->
+            <div class="question">
+
+                <h3>
+                    2. Mengapa sebaiknya tidak menggunakan password yang sama untuk semua akun?
+                </h3>
+
+                <label class="option">
+                    <input type="radio" name="q2" value="0">
+                    Agar lebih mudah diingat
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q2" value="1">
+                    Jika satu akun terkena kebocoran, akun lain tetap lebih aman
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q2" value="0">
+                    Agar password terlihat bagus
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q2" value="0">
+                    Tidak ada alasannya
+                </label>
+
+            </div>
+
+
+            <!-- SOAL 3 -->
+            <div class="question">
+
+                <h3>
+                    3. Manakah yang sebaiknya dihindari ketika membuat password?
+                </h3>
+
+                <label class="option">
+                    <input type="radio" name="q3" value="1">
+                    Menggunakan tanggal lahir
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q3" value="0">
+                    Menggunakan kombinasi karakter
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q3" value="0">
+                    Menggunakan password yang unik
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q3" value="0">
+                    Menggunakan password yang sulit ditebak
+                </label>
+
+            </div>
+
+
+            <!-- SOAL 4 -->
+            <div class="question">
+
+                <h3>
+                    4. Apa fungsi autentikasi dua faktor (2FA)?
+                </h3>
+
+                <label class="option">
+                    <input type="radio" name="q4" value="0">
+                    Membuat password lebih pendek
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q4" value="1">
+                    Memberikan lapisan keamanan tambahan
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q4" value="0">
+                    Menghapus password
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q4" value="0">
+                    Membagikan password
+                </label>
+
+            </div>
+
+
+            <!-- SOAL 5 -->
+            <div class="question">
+
+                <h3>
+                    5. Apa yang sebaiknya dilakukan terhadap password?
+                </h3>
+
+                <label class="option">
+                    <input type="radio" name="q5" value="0">
+                    Membagikannya kepada teman
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q5" value="1">
+                    Menjaga password agar tidak diketahui orang lain
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q5" value="0">
+                    Menuliskannya di media sosial
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q5" value="0">
+                    Menggunakan password yang sama untuk semua akun
+                </label>
+
+            </div>
+
+
+            <button onclick="hitungNilai()">
+                Lihat Hasil
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= HASIL ================= -->
+    <section id="hasil" class="page">
+
+        <div class="card result">
+
+            <h2>📊 Hasil Cek Pemahaman</h2>
+
+            <div class="score">
+                <span id="nilai">0</span>/5
+            </div>
+
+            <div class="result-message" id="pesan"></div>
+
+            <p id="detail"></p>
+
+            <button onclick="showPage('rekomendasi')">
+                Lihat Rekomendasi
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= REKOMENDASI ================= -->
+    <section id="rekomendasi" class="page">
+
+        <div class="card">
+
+            <h2>💡 Rekomendasi Keamanan Password</h2>
+
+            <p>
+                Berikut beberapa kebiasaan yang dapat diterapkan
+                untuk meningkatkan keamanan akun digital.
+            </p>
+
+
+            <div class="recommendation">
+                🔐 Gunakan password yang panjang dan sulit ditebak.
+            </div>
+
+            <div class="recommendation">
+                🚫 Jangan menggunakan password yang sama pada banyak akun.
+            </div>
+
+            <div class="recommendation">
+                👤 Hindari menggunakan nama, tanggal lahir,
+                atau informasi pribadi sebagai password.
+            </div>
+
+            <div class="recommendation">
+                🛡️ Aktifkan autentikasi dua faktor (2FA) jika tersedia.
+            </div>
+
+            <div class="recommendation">
+                🤫 Jangan membagikan password kepada orang lain.
+            </div>
+
+            <button onclick="showPage('home')">
+                Kembali ke Beranda
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<footer>
+    © 2026 Password Awareness TRPL UNG
+</footer>
+
+
+<script>
+
+    /* ================= PINDAH HALAMAN ================= */
+
+    function showPage(pageId) {
+
+        const pages = document.querySelectorAll(".page");
+
+        pages.forEach(function(page) {
+            page.classList.remove("active");
+        });
+
+        document.getElementById(pageId).classList.add("active");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* ================= DATA PENGGUNA ================= */
+
+    function mulaiMateri() {
+
+        const kode = document.getElementById("kode").value;
+        const angkatan = document.getElementById("angkatan").value;
+        const semester = document.getElementById("semester").value;
+
+        if (kode === "" || angkatan === "" || semester === "") {
+
+            alert("Silakan lengkapi data terlebih dahulu.");
+
+            return;
+        }
+
+        showPage("materi");
+    }
+
+
+    /* ================= HITUNG NILAI ================= */
+
+    function hitungNilai() {
+
+        let nilai = 0;
+
+        const soal = ["q1", "q2", "q3", "q4", "q5"];
+
+        for (let i = 0; i < soal.length; i++) {
+
+            const jawaban = document.querySelector(
+                'input[name="' + soal[i] + '"]:checked'
+            );
+
+            if (jawaban) {
+                nilai += parseInt(jawaban.value);
+            }
+        }
+
+
+        document.getElementById("nilai").innerText = nilai;
+
+
+        let pesan = "";
+        let detail = "";
+
+        if (nilai === 5) {
+
+            pesan = "🎉 Pemahaman Sangat Baik";
+
+            detail =
+                "Kamu sudah memahami prinsip dasar keamanan password dengan sangat baik.";
+
+        } else if (nilai >= 3) {
+
+            pesan = "👍 Pemahaman Baik";
+
+            detail =
+                "Kamu sudah memahami sebagian besar materi, tetapi masih ada beberapa hal yang perlu diperhatikan.";
+
+        } else {
+
+            pesan = "📚 Perlu Belajar Lagi";
+
+            detail =
+                "Sebaiknya pelajari kembali materi keamanan password agar pemahamanmu semakin baik.";
+        }
+
+
+        document.getElementById("pesan").innerText = pesan;
+
+        document.getElementById("detail").innerText = detail;
+
+
+        showPage("hasil");
+    }
+
+</script>
+
+</body>
+</html>
